@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzuli.mapper.MoneyTurnMapper" >
+  <resultMap id="BaseResultMap" type="com.zzuli.po.MoneyTurn" >
+    <id column="turn_id" property="turnId" jdbcType="INTEGER" />
+    <result column="turn_money" property="turnMoney" jdbcType="VARCHAR" />
+    <result column="turn_time" property="turnTime" jdbcType="DATE" />
+    <result column="turn_memo" property="turnMemo" jdbcType="VARCHAR" />
+    <result column="turn_kind" property="turnKind" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    turn_id, turn_money, turn_time, turn_memo, turn_kind
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zzuli.po.MoneyTurnExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from money_turn
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from money_turn
+    where turn_id = #{turnId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from money_turn
+    where turn_id = #{turnId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zzuli.po.MoneyTurnExample" >
+    delete from money_turn
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zzuli.po.MoneyTurn" >
+    insert into money_turn (turn_id, turn_money, turn_time, 
+      turn_memo, turn_kind)
+    values (#{turnId,jdbcType=INTEGER}, #{turnMoney,jdbcType=VARCHAR}, #{turnTime,jdbcType=DATE}, 
+      #{turnMemo,jdbcType=VARCHAR}, #{turnKind,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzuli.po.MoneyTurn" >
+    insert into money_turn
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="turnId != null" >
+        turn_id,
+      </if>
+      <if test="turnMoney != null" >
+        turn_money,
+      </if>
+      <if test="turnTime != null" >
+        turn_time,
+      </if>
+      <if test="turnMemo != null" >
+        turn_memo,
+      </if>
+      <if test="turnKind != null" >
+        turn_kind,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="turnId != null" >
+        #{turnId,jdbcType=INTEGER},
+      </if>
+      <if test="turnMoney != null" >
+        #{turnMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="turnTime != null" >
+        #{turnTime,jdbcType=DATE},
+      </if>
+      <if test="turnMemo != null" >
+        #{turnMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="turnKind != null" >
+        #{turnKind,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zzuli.po.MoneyTurnExample" resultType="java.lang.Integer" >
+    select count(*) from money_turn
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update money_turn
+    <set >
+      <if test="record.turnId != null" >
+        turn_id = #{record.turnId,jdbcType=INTEGER},
+      </if>
+      <if test="record.turnMoney != null" >
+        turn_money = #{record.turnMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.turnTime != null" >
+        turn_time = #{record.turnTime,jdbcType=DATE},
+      </if>
+      <if test="record.turnMemo != null" >
+        turn_memo = #{record.turnMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.turnKind != null" >
+        turn_kind = #{record.turnKind,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update money_turn
+    set turn_id = #{record.turnId,jdbcType=INTEGER},
+      turn_money = #{record.turnMoney,jdbcType=VARCHAR},
+      turn_time = #{record.turnTime,jdbcType=DATE},
+      turn_memo = #{record.turnMemo,jdbcType=VARCHAR},
+      turn_kind = #{record.turnKind,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzuli.po.MoneyTurn" >
+    update money_turn
+    <set >
+      <if test="turnMoney != null" >
+        turn_money = #{turnMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="turnTime != null" >
+        turn_time = #{turnTime,jdbcType=DATE},
+      </if>
+      <if test="turnMemo != null" >
+        turn_memo = #{turnMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="turnKind != null" >
+        turn_kind = #{turnKind,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where turn_id = #{turnId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzuli.po.MoneyTurn" >
+    update money_turn
+    set turn_money = #{turnMoney,jdbcType=VARCHAR},
+      turn_time = #{turnTime,jdbcType=DATE},
+      turn_memo = #{turnMemo,jdbcType=VARCHAR},
+      turn_kind = #{turnKind,jdbcType=VARCHAR}
+    where turn_id = #{turnId,jdbcType=INTEGER}
+  </update>
+</mapper>

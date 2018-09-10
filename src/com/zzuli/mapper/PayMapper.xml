@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzuli.mapper.PayMapper">
+<!-- 保存账单 -->
+<insert id="paySeve" parameterType="moneyPay">
+	insert into money_pay(pay_money,pay_time,pay_memo,pay_kind) values(#{pay_money},#{pay_time},#{pay_memo},#{pay_kind})
+</insert>
+
+<!-- 查询全部 -->
+<select id="findAll" resultType="payVO">
+	select pay_id,pay_time,pay_money,pay_memo,kind_item from money_pay,money_kind where pay_kind = kind_id
+</select>
+
+<!-- 查询记录数 -->
+<select id="findCount" resultType="int">
+	select count(*) from money_pay
+</select>
+
+<!-- 分页查询 -->
+<select id="findByPage" parameterType="pageInfo" resultType="payVo">
+select pay_id,pay_time,pay_money,pay_memo,kind_item from money_pay,money_kind where pay_kind = kind_id limit #{begin},#{pageSize}
+</select>
+
+<!-- 通过id查询 -->
+<!-- <select id="findById" parameterType="int" resultType="payVo">
+	select pay_id,pay_time,pay_money,pay_memo,kind_item from money_pay,money_kind where pay_kind = kind_id and pay_id=#{value}
+</select> -->
+<select id="findById" parameterType="int" resultType="moneyPay">
+	select * from money_pay where pay_id=#{value}
+</select>
+
+<!-- 更新 -->
+<update id="updateById" parameterType="moneyPay">
+	update money_pay set pay_money=#{pay_money},pay_time=#{pay_time},pay_memo=#{pay_memo},pay_kind=#{pay_kind} where pay_id=#{pay_id}
+</update>
+<!-- 删除 -->
+<delete id="deleteById" parameterType="int">
+	delete from money_pay where pay_id=#{value}
+</delete>
+</mapper>

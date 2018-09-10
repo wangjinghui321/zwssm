@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzuli.mapper.MoneyInMapper" >
+  <resultMap id="BaseResultMap" type="com.zzuli.po.MoneyIn" >
+    <id column="in_id" property="inId" jdbcType="INTEGER" />
+    <result column="in_money" property="inMoney" jdbcType="VARCHAR" />
+    <result column="in_time" property="inTime" jdbcType="DATE" />
+    <result column="in_memo" property="inMemo" jdbcType="VARCHAR" />
+    <result column="in_kind" property="inKind" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    in_id, in_money, in_time, in_memo, in_kind
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zzuli.po.MoneyInExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from money_in
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from money_in
+    where in_id = #{inId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from money_in
+    where in_id = #{inId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zzuli.po.MoneyInExample" >
+    delete from money_in
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zzuli.po.MoneyIn" >
+    insert into money_in (in_id, in_money, in_time, 
+      in_memo, in_kind)
+    values (#{inId,jdbcType=INTEGER}, #{inMoney,jdbcType=VARCHAR}, #{inTime,jdbcType=DATE}, 
+      #{inMemo,jdbcType=VARCHAR}, #{inKind,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzuli.po.MoneyIn" >
+    insert into money_in
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="inId != null" >
+        in_id,
+      </if>
+      <if test="inMoney != null" >
+        in_money,
+      </if>
+      <if test="inTime != null" >
+        in_time,
+      </if>
+      <if test="inMemo != null" >
+        in_memo,
+      </if>
+      <if test="inKind != null" >
+        in_kind,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="inId != null" >
+        #{inId,jdbcType=INTEGER},
+      </if>
+      <if test="inMoney != null" >
+        #{inMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="inTime != null" >
+        #{inTime,jdbcType=DATE},
+      </if>
+      <if test="inMemo != null" >
+        #{inMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="inKind != null" >
+        #{inKind,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zzuli.po.MoneyInExample" resultType="java.lang.Integer" >
+    select count(*) from money_in
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update money_in
+    <set >
+      <if test="record.inId != null" >
+        in_id = #{record.inId,jdbcType=INTEGER},
+      </if>
+      <if test="record.inMoney != null" >
+        in_money = #{record.inMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inTime != null" >
+        in_time = #{record.inTime,jdbcType=DATE},
+      </if>
+      <if test="record.inMemo != null" >
+        in_memo = #{record.inMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inKind != null" >
+        in_kind = #{record.inKind,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update money_in
+    set in_id = #{record.inId,jdbcType=INTEGER},
+      in_money = #{record.inMoney,jdbcType=VARCHAR},
+      in_time = #{record.inTime,jdbcType=DATE},
+      in_memo = #{record.inMemo,jdbcType=VARCHAR},
+      in_kind = #{record.inKind,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzuli.po.MoneyIn" >
+    update money_in
+    <set >
+      <if test="inMoney != null" >
+        in_money = #{inMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="inTime != null" >
+        in_time = #{inTime,jdbcType=DATE},
+      </if>
+      <if test="inMemo != null" >
+        in_memo = #{inMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="inKind != null" >
+        in_kind = #{inKind,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where in_id = #{inId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzuli.po.MoneyIn" >
+    update money_in
+    set in_money = #{inMoney,jdbcType=VARCHAR},
+      in_time = #{inTime,jdbcType=DATE},
+      in_memo = #{inMemo,jdbcType=VARCHAR},
+      in_kind = #{inKind,jdbcType=VARCHAR}
+    where in_id = #{inId,jdbcType=INTEGER}
+  </update>
+</mapper>

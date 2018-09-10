@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzuli.mapper.InMapper">
+	<select id="findCount" resultType="int">
+	select count(*) from money_in
+</select>
+
+<resultMap type="inVo" id="pageList">
+	<id column="in_id" property="inId"/>
+	<result column="in_time" property="inTime"/>
+	<result column="in_money" property="inMoney"/>
+	<result column="in_memo" property="inMemo"/>
+	<result column="kind_item" property="kind_item"/>
+</resultMap>
+<select id="findByPage" parameterType="pageInfo" resultMap="pageList">
+select in_id,in_time,in_money,in_memo,kind_item from money_in,money_kind where in_kind = kind_id limit #{begin},#{pageSize}
+</select>
+
+<update id="updateById" parameterType="moneyIn">
+	update money_in set in_money=#{inMoney},in_time=#{inTime},in_memo=#{inMemo},in_kind=#{inKind} where in_id=#{inId}
+</update>
+</mapper>
